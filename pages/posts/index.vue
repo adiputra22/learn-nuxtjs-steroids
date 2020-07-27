@@ -10,6 +10,12 @@ import PostList from '@/components/Posts/PostList';
 export default {
   components: {
     PostList
+  },
+  props: {
+    isAdmin: {
+      type: Boolean,
+      default: false
+    }
   }
 }
 </script>

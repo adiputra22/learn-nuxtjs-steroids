@@ -66,6 +66,10 @@ export default {
       context.error(e);
     });
   },
+  created() {
+    this.$store.dispatch('setPosts', this.loadedPosts);
+    console.log(this.$store.getters.loadedPosts);
+  }
 }
 </script>
 

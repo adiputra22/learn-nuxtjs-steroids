@@ -1,18 +1,38 @@
 <template>
     <div class="single-post-page">
         <section class="post">
-            <h1 class="post-title">Title</h1>
+            <h1 class="post-title">{{ loadedPost.title }}</h1>
             <div class="post-details">
-                <div class='post-detail'>Last updated on: xx</div>
-                <div class='post-detail'>Posted by name</div>
+                <div class='post-detail'>Last updated on: {{ loadedPost.updatedDate }}</div>
+                <div class='post-detail'>Posted by {{ loadedPost.author }}</div>
             </div>
-            <p class='post-content'>content post</p>
+            <p class='post-content'>{{ loadedPost.content }}</p>
         </section>
         <section class="post-feedback">
             <p>Let me know </p>
         </section>
     </div>
 </template>
+
+<script>
+export default {
+  asyncData(context, callback) {
+    setTimeout(() => {
+      callback(null, {
+        loadedPost: {
+          id: '1',
+          title: 'this is title (ID: '+ context.route.params.id +')',
+          previewText: 'preview text here',
+          author: 'adiputra', 
+          updatedDate: new Date(),
+          content: 'this is content. this is content . this is content',
+          thumbnail: 'https://images.pexels.com/photos/2092872/pexels-photo-2092872.jpeg'
+        }
+      })
+    },1000)
+  }
+}
+</script>
 
 <style scoped>
 .single-post-page {

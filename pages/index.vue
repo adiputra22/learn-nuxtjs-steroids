@@ -4,7 +4,7 @@
       <h1>Get the latest tech news!</h1>
     </section>
 
-    <PostList />
+    <PostList :posts="loadedPosts" />
   </div>
 </template>
 
@@ -14,6 +14,83 @@ import PostList from '@/components/Posts/PostList';
 export default {
   components: {
     PostList
+  },
+  asyncData(context, callback) {
+    console.log('asyncData is loaded');
+    
+    setTimeout(() => {
+      callback(null, {
+        loadedPosts: [
+          {
+            id: '1',
+            title: 'this is title',
+            previewText: 'preview text here',
+            content: 'this is content',
+            thumbnail: 'https://images.pexels.com/photos/2092872/pexels-photo-2092872.jpeg'
+          },
+          {
+            id: '2',
+            title: 'this is title 2',
+            previewText: 'preview text here',
+            content: 'this is content',
+            thumbnail: 'https://images.pexels.com/photos/2092872/pexels-photo-2092872.jpeg'
+          },
+          {
+            id: '3',
+            title: 'this is title 3',
+            previewText: 'preview text here',
+            content: 'this is content',
+            thumbnail: 'https://images.pexels.com/photos/2092872/pexels-photo-2092872.jpeg'
+          },
+          {
+            id: '4',
+            title: 'this is title 4',
+            previewText: 'preview text here',
+            content: 'this is content',
+            thumbnail: 'https://images.pexels.com/photos/2092872/pexels-photo-2092872.jpeg'
+          }
+        ]
+      });
+    }, 1500);
+  },
+  // data() {
+  //   return {
+  //     loadedPosts: []
+  //   }
+  // },
+  created() {
+    // setTimeout(() => {
+    //   this.loadedPosts = [
+    //     {
+    //       id: '1',
+    //       title: 'this is title',
+    //       previewText: 'preview text here',
+    //       content: 'this is content',
+    //       thumbnail: 'https://images.pexels.com/photos/2092872/pexels-photo-2092872.jpeg'
+    //     },
+    //     {
+    //       id: '2',
+    //       title: 'this is title 2',
+    //       previewText: 'preview text here',
+    //       content: 'this is content',
+    //       thumbnail: 'https://images.pexels.com/photos/2092872/pexels-photo-2092872.jpeg'
+    //     },
+    //     {
+    //       id: '3',
+    //       title: 'this is title 3',
+    //       previewText: 'preview text here',
+    //       content: 'this is content',
+    //       thumbnail: 'https://images.pexels.com/photos/2092872/pexels-photo-2092872.jpeg'
+    //     },
+    //     {
+    //       id: '4',
+    //       title: 'this is title 4',
+    //       previewText: 'preview text here',
+    //       content: 'this is content',
+    //       thumbnail: 'https://images.pexels.com/photos/2092872/pexels-photo-2092872.jpeg'
+    //     }
+    //   ];
+    // }, 1500)
   }
 }
 </script>

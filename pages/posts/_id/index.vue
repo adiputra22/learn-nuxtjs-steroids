@@ -15,32 +15,17 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   asyncData(context) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        
-        resolve({
-          loadedPost: {
-            id: '1',
-            title: 'this is title (ID: '+ context.route.params.id +')',
-            previewText: 'preview text here',
-            author: 'adiputra', 
-            updatedDate: new Date(),
-            content: 'this is content. this is content . this is content',
-            thumbnail: 'https://images.pexels.com/photos/2092872/pexels-photo-2092872.jpeg'
-          }
-        });
-
-        // reject(new Error());
-      }, 1500);
-    })
-    .then(data => {
-      return data;
-    })
-    .catch(e => {
-      context.error(e);
-    });
+    return axios.get(`${process.env.baseUrl}/posts/${context.params.id}.json`)
+      .then(res => {
+        return {
+          loadedPost: res.data
+        }
+      })
+      .catch(e => context.error(e))
   }
 }
 </script>

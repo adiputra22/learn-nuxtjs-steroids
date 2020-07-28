@@ -15,54 +15,10 @@ export default {
   components: {
     PostList
   },
-  asyncData(context) {
-    console.log('asyncData is loaded');
-    
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        
-        resolve({
-          loadedPosts: [
-            {
-              id: '1',
-              title: 'this is title',
-              previewText: 'preview text here',
-              content: 'this is content',
-              thumbnail: 'https://images.pexels.com/photos/2092872/pexels-photo-2092872.jpeg'
-            },
-            {
-              id: '2',
-              title: 'this is title 2',
-              previewText: 'preview text here',
-              content: 'this is content',
-              thumbnail: 'https://images.pexels.com/photos/2092872/pexels-photo-2092872.jpeg'
-            },
-            {
-              id: '3',
-              title: 'this is title 3',
-              previewText: 'preview text here',
-              content: 'this is content',
-              thumbnail: 'https://images.pexels.com/photos/2092872/pexels-photo-2092872.jpeg'
-            },
-            {
-              id: '4',
-              title: 'this is title 4',
-              previewText: 'preview text here',
-              content: 'this is content',
-              thumbnail: 'https://images.pexels.com/photos/2092872/pexels-photo-2092872.jpeg'
-            }
-          ]
-        });
-
-        // reject(new Error());
-      }, 1500);
-    })
-    .then(data => {
-      return data;
-    })
-    .catch(e => {
-      context.error(e);
-    });
+  computed: {
+    loadedPosts() {
+      return this.$store.getters.loadedPosts;
+    }
   }
 }
 </script>

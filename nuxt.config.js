@@ -71,5 +71,8 @@ export default {
   },
   router: {
     middleware: 'log'
+  },
+  env: {
+    FIREBASE_API_KEY: process.env.FIREBASE_API_KEY
   }
 }

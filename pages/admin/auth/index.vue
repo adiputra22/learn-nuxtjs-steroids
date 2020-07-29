@@ -1,9 +1,9 @@
 <template>
   <div class="admin-auth-page">
     <div class="auth-container">
-      <form>
-        <AppControlInput type="email">E-Mail Address</AppControlInput>
-        <AppControlInput type="password">Password</AppControlInput>
+      <form @submit.prevent="onSubmitted">
+        <AppControlInput type="email" v-model="email">E-Mail Address</AppControlInput>
+        <AppControlInput type="password" v-model="password">Password</AppControlInput>
         <AppButton type="submit">{{ isLogin ? 'Login' : 'Sign Up' }}</AppButton>
         <AppButton
           type="button"
@@ -29,7 +29,20 @@ export default {
   layout: "admin",
   data() {
     return {
-      isLogin: true
+      isLogin: true,
+      email: '',
+      password: ''
+    }
+  },
+  methods: {
+    onSubmitted() {
+      this.$axios.$post(
+        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=" + process.env.FIREBASE_API_KEY, {
+          email: this.email,
+          password: this.password
+        })
+        .then(result => console.log(result))
+        .catch(error => console.log(error));
     }
   }
 }

@@ -36,8 +36,15 @@ export default {
   },
   methods: {
     onSubmitted() {
+      let url = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=";
+
+      if (!this.isLogin) {
+        // register /signup
+        url = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=";
+      }
+
       this.$axios.$post(
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=" + process.env.FIREBASE_API_KEY, {
+        url + process.env.FIREBASE_API_KEY, {
           email: this.email,
           password: this.password
         })

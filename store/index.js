@@ -45,14 +45,14 @@ const createStore = () => {
                     updatedDate: new Date() 
                 };
 
-                return this.$axios.$post(`/posts.json`, createdPost)
+                return this.$axios.$post(`/posts.json?auth=${vuexContext.state.token}`, createdPost)
                 .then(data => {
                     vuexContext.commit('addPost', { ...createdPost, id: data.name });
                 })
                 .catch(e => console.log(e));
             },
             editPost(vuexContext, editedPost) {
-                return this.$axios.$put(`/posts/${editedPost.id}.json`, editedPost)
+                return this.$axios.$put(`/posts/${editedPost.id}.json?auth=${vuexContext.state.token}`, editedPost)
                     .then(res => {
                         vuexContext.commit('editPost', editedPost);
                     })
@@ -69,13 +69,14 @@ const createStore = () => {
                 return this.$axios.$post(
                     url + process.env.FIREBASE_API_KEY, {
                     email: authData.email,
-                    password: authData.password
-                    })
-                    .then(result => {
-                        console.log(result);
-                        vuexContext.commit('setToken', result.idToken);
-                    })
-                    .catch(error => console.log(error));
+                    password: authData.password,
+                    returnSecureToken: true
+                })
+                .then(result => {
+                    console.log(result);
+                    vuexContext.commit('setToken', result.idToken);
+                })
+                .catch(error => console.log(error));
             }
         },
         getters: {

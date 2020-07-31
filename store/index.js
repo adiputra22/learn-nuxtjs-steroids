@@ -1,4 +1,5 @@
 import Vuex from 'vuex';
+import Cookie from 'js-cookie'
 
 const createStore = () => {
     return new Vuex.Store({
@@ -56,7 +57,12 @@ const createStore = () => {
                     .then(res => {
                         vuexContext.commit('editPost', editedPost);
                     })
-                    .catch(e => console.log(e));
+                    .catch(e => {
+                        console.log(e);
+                        
+                        // jika error 401
+                        // redirect ke halaman '/admin/auth'
+                    });
             },
             authenticateUser(vuexContext, authData) {
                 let url = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=";
@@ -75,8 +81,35 @@ const createStore = () => {
                 .then(result => {
                     console.log(result);
                     vuexContext.commit('setToken', result.idToken);
+
+                    // simpan di cookie
+                    Cookie.set('token', result.idToken);
                 })
                 .catch(error => console.log(error));
+            },
+            checkToken(vuexContext, request) {
+                if (request) {
+                    // kita ambil cookie
+                    if (!request.headers.cookie) {
+                        console.log('cookie di headers kosong');
+                        return;
+                    }
+
+                    console.log('cookie header: ' + request.headers.cookie);
+
+                    let token = request.headers.cookie.split(';')
+                        .find(item => item.trim().startsWith('token='));
+
+                    if (!token) {
+                        console.log('token tidak ada saat parsing');
+                    }
+
+                    let realToken = token.split('=')[1];
+
+                    console.log('realToken: ' + realToken);
+
+                    vuexContext.commit('setToken', realToken);
+                }
             }
         },
         getters: {

@@ -9,7 +9,7 @@
 <script>
 export default {
     layout: "admin",
-    middleware: 'auth',
+    middleware: ['check-token','auth'],
     methods: {
         onSubmitted(postData) {
             this.$store.dispatch('addPost', postData)

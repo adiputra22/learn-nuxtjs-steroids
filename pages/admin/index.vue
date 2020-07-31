@@ -14,7 +14,7 @@
 <script>
 export default {
     layout: "admin",
-    middleware: 'auth',
+    middleware: ['check-token','auth'],
     computed: {
         loadedPosts() {
             return this.$store.getters.loadedPosts;

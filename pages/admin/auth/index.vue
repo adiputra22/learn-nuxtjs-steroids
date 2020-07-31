@@ -27,6 +27,7 @@ export default {
     AppButton
   },
   layout: "admin",
+  middleware: ['check-token'],
   data() {
     return {
       isLogin: true,

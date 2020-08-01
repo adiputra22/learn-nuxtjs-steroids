@@ -21,6 +21,9 @@ const createStore = () => {
             },
             setToken(state, token) {
                 state.token = token;
+            },
+            clearToken(state) {
+                state.token = null;
             }
         },
         actions: {
@@ -59,7 +62,7 @@ const createStore = () => {
                     })
                     .catch(e => {
                         console.log(e);
-                        
+
                         // jika error 401
                         // redirect ke halaman '/admin/auth'
                     });
@@ -110,6 +113,10 @@ const createStore = () => {
 
                     vuexContext.commit('setToken', realToken);
                 }
+            },
+            actionLogout(vuexContext) {
+                vuexContext.commit('clearToken');
+                Cookie.remove('token');
             }
         },
         getters: {
